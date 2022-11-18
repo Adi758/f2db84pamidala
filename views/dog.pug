@@ -3,14 +3,19 @@ block content
     div(class="container-fluid")
         h1= title
     - let result= results 
-        div(class="row")
-            each form,index in result
-                div(class = "col-sm-2 bg-primary" onclick=`buy(${index})`) #{form.dog_color}              
-                div(class = "col-sm-2 bg-primary" onclick=`buy(${index})`) #{form.dog_breed}                
-                div(class = "col-sm-2 bg-primary" onclick=`buy(${index})`) #{form.dog_price}
-                hr
+        div(class="container-fluid")
+          div(class="row m-1")
+           each item in result
+            -let destination = `dispatch(\"/dog/update?id=${item._id}\")`
+            div(class="row-sm-2" class="m-1") Item#{item.dog_color}(#{item.dog_breed}) is #{item.dog_price}
+             button.btn( class="btn-primary ml-1", onclick= destination) Update
+
     script.
         function buy(itemNo)
         {
             alert(`You purchased Item ${itemNo+1}`)
         }
+    script.
+        function dispatch(path){
+            window.location.href=path
+        }    
